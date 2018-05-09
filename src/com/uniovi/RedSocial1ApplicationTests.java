@@ -1,9 +1,5 @@
 package com.uniovi;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,6 +12,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+import com.mongodb.MongoClient;
+import com.mongodb.ServerAddress;
 import com.uniovi.pageobjects.PO_LoginView;
 import com.uniovi.pageobjects.PO_NavView;
 import com.uniovi.pageobjects.PO_Properties;
@@ -53,7 +54,9 @@ public class RedSocial1ApplicationTests {
 	// Antes de cada prueba se navega al URL home de la aplicaciónn
 	@Before
 	public void setUp() {
+
 		driver.navigate().to(URL);
+
 	}
 
 	// Después de cada prueba se borran las cookies del navegador
@@ -73,22 +76,22 @@ public class RedSocial1ApplicationTests {
 		// Cerramos el navegador al finalizar las pruebas
 		driver.quit();
 	}
-
+	
 	// PR01_1. Registro de Usuario con datos válidos
 	@Test
 	public void PR01() {
 		// Vamos al formulario de registro
-		PO_NavView.clickOption(driver, "signup", "class", "btn btn-primary");
+		PO_NavView.clickOption(driver, "registrarse", "class", "btn btn-primary");
 		// Rellenamos el formulario.
 		PO_RegisterView.fillForm(driver, "77777778A@uniovi.es", "Josefo", "77777", "77777");
 		SeleniumUtils.esperarSegundos(driver, 1);
 		// Comprobamos que entramos en la sección privada
-		PO_RegisterView.checkKey(driver, "users.show.text", PO_Properties.getSPANISH());
+		PO_RegisterView.checkElement(driver, "text", "Nuevo usuario registrado");
 	}
 
 	// PR01_2.Registro de Usuario con datos inválidos (repetición de contraseña
 	// invalida).
-	@Test
+	/*@Test
 	public void PR02() {
 
 		// Vamos al formulario de registro
@@ -294,7 +297,18 @@ public class RedSocial1ApplicationTests {
 		PO_View.checkElement(driver, "text", "Juan@hotmail.com");
 
 	}
+	//HASTA AQUI
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	*/
 	//POR SI SE QUIERE UTILIZAR PA ALGO
 	/*// PR09_1 Crear una publicación con datos válidos
 	@Test
