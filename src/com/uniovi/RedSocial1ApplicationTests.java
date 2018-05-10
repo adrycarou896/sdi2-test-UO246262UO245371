@@ -25,6 +25,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import com.uniovi.pageobjects.PO_LoginView;
 import com.uniovi.pageobjects.PO_LoginViewCliente;
+import com.uniovi.pageobjects.PO_MessageView;
 import com.uniovi.pageobjects.PO_NavView;
 import com.uniovi.pageobjects.PO_Properties;
 import com.uniovi.pageobjects.PO_PublicationView;
@@ -86,7 +87,7 @@ public class RedSocial1ApplicationTests {
 	}
 	
 	// PR01_1. Registro de Usuario con datos válidos
-	/*@Test
+	@Test
 	public void PR01() {
 		// Vamos al formulario de registro
 		PO_NavView.clickOption(driver, "registrarse", "class", "btn btn-primary");
@@ -303,7 +304,7 @@ public class RedSocial1ApplicationTests {
 		SeleniumUtils.esperarSegundos(driver, 1);
 		PO_RegisterView.checkElement(driver, "text", "77777778A@uniovi.es");
 
-	}*/
+	}
 	
 	// PRC01_1. Inicio de sesión con datos válidos. 
 	@Test
@@ -387,21 +388,56 @@ public class RedSocial1ApplicationTests {
 		SeleniumUtils.esperarSegundos(driver, 5);
 		driver.findElement(By.id("Juan@hotmail.com")).click();
 		
-		//SeleniumUtils.esperarSegundos(driver, 10);
+		//Enviar mensaje al otro usuario
+		SeleniumUtils.esperarSegundos(driver, 5);
+		PO_MessageView.fillForm(driver, "Mensaje 4");
+		
+		//Comprobar el mensaje recibido
+		SeleniumUtils.esperarSegundos(driver, 5);
+		PO_RegisterView.checkElement(driver, "text", "Mensaje 4");
 	}
 	
 	// PRC05_1. Identificarse en la aplicación y enviar un mensaje a un amigo, validar que el mensaje enviado aparece en el chat. Identificarse después con el usuario que recibido el mensaje y validar que tiene un mensaje sin leer, entrar en el chat y comprobar que el mensaje pasa a tener el estado leído.
 	@Test
 	public void PR20() {
-		//Navegamos a la p�gina de la API
+		//Navegamos a la página del cliente
 		driver.navigate().to(URL+"/cliente.html");
 		// Rellenamos el formulario
 		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
+		// Navegamos al amigo de adrián, juan
 		SeleniumUtils.esperarSegundos(driver, 5);
-		// COmprobamos que entramos en la pagina privada de Alumno
-		PO_SearchTextView.fillForm(driver, "Juan");
+		driver.findElement(By.id("Juan@hotmail.com")).click();
+		
+		//Enviar mensaje al otro usuario
+		SeleniumUtils.esperarSegundos(driver, 5);
+		PO_MessageView.fillForm(driver, "Mensaje 5");
+		
+		//Comprobar el mensaje recibido
+		SeleniumUtils.esperarSegundos(driver, 5);
+		PO_RegisterView.checkElement(driver, "text", "Mensaje 5");
+		PO_RegisterView.checkElement(driver, "text", "No leído");
+		
+		//Navegamos a la página del cliente
+		driver.navigate().to(URL+"/cliente.html");
+		// Rellenamos el formulario
+		PO_LoginViewCliente.fillForm(driver, "Juan@hotmail.com", "123456");
+		// Navegamos al amigo de juan, adrián
+		SeleniumUtils.esperarSegundos(driver, 5);
+		driver.findElement(By.id("adripc@live.com")).click();
 		SeleniumUtils.esperarSegundos(driver, 2);
-		PO_RegisterView.checkElement(driver, "text", "Juan@hotmail.com");
+		
+		//Navegamos a la página del cliente
+		driver.navigate().to(URL+"/cliente.html");
+		// Rellenamos el formulario
+		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
+		// Navegamos al amigo de juan, adrián
+		SeleniumUtils.esperarSegundos(driver, 5);
+		driver.findElement(By.id("Juan@hotmail.com")).click();
+		//Comprobamos que el mensaje ha quedado marcado como leído
+		SeleniumUtils.esperarSegundos(driver, 5);
+		PO_RegisterView.checkElement(driver, "text", "Mensaje 5");
+		PO_RegisterView.checkElement(driver, "text", "Leído");
+		
 	}
 	
 	
