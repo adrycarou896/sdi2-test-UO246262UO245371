@@ -1,5 +1,7 @@
 package com.uniovi;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -128,19 +130,27 @@ public class RedSocial1ApplicationTests {
 		PO_RegisterView.checkElement(driver, "text", "Email o password incorrecto");
 	}
 
-	/*// PR03_1 Acceso al listado de usuarios desde un usuario en sesión.
+	// PR03_1 Acceso al listado de usuarios desde un usuario en sesión.
 	@Test
 	public void PR05() {
 		// Vamos al formulario de logueo.
-		PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
-		// Rellenamos el formulario.
-		PO_LoginView.fillForm(driver, "adripc@live.com", "123456");
-		// Comprobamos que estamos en la vista lista usuarios.
-		SeleniumUtils.esperarSegundos(driver, 1);
-		PO_RegisterView.checkKey(driver, "users.show.text", PO_Properties.getSPANISH());
+		PO_NavView.clickOption(driver, "identificarse", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "77777778A@uniovi.es", "77777");
+		// COmprobamos que entramos en la pagina privada de Alumno
+		SeleniumUtils.esperarSegundos(driver, 2);
+		
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id,'users-menu')]/a");
+		elementos.get(0).click();
+		// Sacamos la pestaña para ver las peticiones
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, '/usuarios')]");
+		// Pinchamos en la pestaña para ver las peticiones
+		elementos.get(0).click();
+		
+		PO_RegisterView.checkElement(driver, "text", "Lista de usuarios");
 	}
 
-	// PR03_2 Intento de acceso con URL desde un usuario no identificado al listado
+	/*// PR03_2 Intento de acceso con URL desde un usuario no identificado al listado
 	// de
 	// usuarios desde un usuario en sesión. Debe producirse un acceso no permitido a
 	// vistas privadas.
