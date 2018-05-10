@@ -19,7 +19,7 @@ public class PO_LoginViewCliente extends PO_NavView {
 			password.sendKeys(passwordp);
 			
 			//Pulsar el boton de Alta.
-			By boton = By.className("btn");
+			By boton = By.id("boton-login");
 			driver.findElement(boton).click();
 		}
 

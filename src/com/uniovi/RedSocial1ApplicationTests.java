@@ -24,12 +24,14 @@ import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import com.uniovi.pageobjects.PO_LoginView;
+import com.uniovi.pageobjects.PO_LoginViewCliente;
 import com.uniovi.pageobjects.PO_NavView;
 import com.uniovi.pageobjects.PO_Properties;
 import com.uniovi.pageobjects.PO_PublicationView;
 import com.uniovi.pageobjects.PO_PublicationView2;
 import com.uniovi.pageobjects.PO_RegisterView;
 import com.uniovi.pageobjects.PO_SearchTextView;
+import com.uniovi.pageobjects.PO_SearchTextViewCliente;
 import com.uniovi.pageobjects.PO_View;
 import com.uniovi.utils.SeleniumUtils;
 
@@ -309,10 +311,10 @@ public class RedSocial1ApplicationTests {
 		//Navegamos a la página de la API
 		driver.navigate().to(URL+"/cliente.html");
 		// Rellenamos el formulario
-		PO_LoginView.fillForm(driver, "77777778A@uniovi.es", "77777");
+		PO_LoginViewCliente.fillForm(driver, "77777778A@uniovi.es", "77777");
 		// COmprobamos que entramos en la pagina privada de Alumno
-		SeleniumUtils.esperarSegundos(driver, 2);
-		PO_RegisterView.checkElement(driver, "text", "Mensajes no le�dos");
+		SeleniumUtils.esperarSegundos(driver, 10);
+		PO_RegisterView.checkElement(driver, "text", "Mensajes no leídos");
 	}
 	
 	// PRC01_2. Inicio de sesión con datos inválidos (usuario no existente en la aplicación)
@@ -321,9 +323,9 @@ public class RedSocial1ApplicationTests {
 		//Navegamos a la página de la API
 		driver.navigate().to(URL+"/cliente.html");
 		// Rellenamos el formulario
-		PO_LoginView.fillForm(driver, "ZZZZZZZZA@uniovi.es", "123456");
+		PO_LoginViewCliente.fillForm(driver, "ZZZZZZZZA@uniovi.es", "123456");
 		// COmprobamos que no entramos en la pagina privada del Usuario
-		SeleniumUtils.esperarSegundos(driver, 2);
+		SeleniumUtils.esperarSegundos(driver, 10);
 		PO_RegisterView.checkElement(driver, "text", "Usuario no encontrado");
 	}
 	
@@ -333,7 +335,7 @@ public class RedSocial1ApplicationTests {
 		//Navegamos a la p�gina de la API
 		driver.navigate().to(URL+"/cliente.html");
 		// Rellenamos el formulario
-		PO_LoginView.fillForm(driver, "adripc@live.com", "123456");
+		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
 		// Comprobamos que aparecen los tres amigos de adri
 		SeleniumUtils.esperarSegundos(driver, 10);
 		PO_RegisterView.checkElement(driver, "text", "Juan@hotmail.com");
@@ -347,12 +349,52 @@ public class RedSocial1ApplicationTests {
 		//Navegamos a la p�gina de la API
 		driver.navigate().to(URL+"/cliente.html");
 		// Rellenamos el formulario
-		PO_LoginView.fillForm(driver, "adripc@live.com", "123456");
+		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
+		// COmprobamos que entramos en la pagina privada de Alumno
+		PO_SearchTextViewCliente.fillForm(driver, "Juan");
+		SeleniumUtils.esperarSegundos(driver, 10);
+		PO_RegisterView.checkElement(driver, "text", "Juan@hotmail.com");
+		
+	}
+	
+	// PRC03_1. Acceder a la lista de amigos de un usuario, que al menos tenga tres amigos. 
+	@Test
+	public void PR18() {
+		//Navegamos a la p�gina de la API
+		driver.navigate().to(URL+"/cliente.html");
+		// Rellenamos el formulario
+		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
+		// Comprobamos que aparecen los tres amigos de adri
+		SeleniumUtils.esperarSegundos(driver, 10);
+		PO_RegisterView.checkElement(driver, "text", "Juan@hotmail.com");
+		PO_RegisterView.checkElement(driver, "text", "Roberto@hotmail.com");
+		PO_RegisterView.checkElement(driver, "text", "77777778A@uniovi.es");
+	}
+	
+	// PRC04_1. Acceder a la lista de amigos de un usuario, y realizar un filtrado para encontrar a un amigo concreto, el nombre a buscar debe coincidir con el de un amigo. 
+	@Test
+	public void PR19() {
+		//Navegamos a la p�gina de la API
+		driver.navigate().to(URL+"/cliente.html");
+		// Rellenamos el formulario
+		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
 		// COmprobamos que entramos en la pagina privada de Alumno
 		PO_SearchTextView.fillForm(driver, "Juan");
 		SeleniumUtils.esperarSegundos(driver, 10);
 		PO_RegisterView.checkElement(driver, "text", "Juan@hotmail.com");
-		
+	}
+	
+	// PRC05_1. Acceder a la lista de amigos de un usuario, y realizar un filtrado para encontrar a un amigo concreto, el nombre a buscar debe coincidir con el de un amigo. 
+	@Test
+	public void PR20() {
+		//Navegamos a la p�gina de la API
+		driver.navigate().to(URL+"/cliente.html");
+		// Rellenamos el formulario
+		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
+		// COmprobamos que entramos en la pagina privada de Alumno
+		PO_SearchTextView.fillForm(driver, "Juan");
+		SeleniumUtils.esperarSegundos(driver, 10);
+		PO_RegisterView.checkElement(driver, "text", "Juan@hotmail.com");
 	}
 	
 	
