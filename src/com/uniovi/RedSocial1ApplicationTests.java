@@ -1,5 +1,7 @@
 package com.uniovi;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
 import org.junit.After;
@@ -150,17 +152,17 @@ public class RedSocial1ApplicationTests {
 		PO_RegisterView.checkElement(driver, "text", "Lista de usuarios");
 	}
 
-	/*// PR03_2 Intento de acceso con URL desde un usuario no identificado al listado
+	// PR03_2 Intento de acceso con URL desde un usuario no identificado al listado
 	// de
 	// usuarios desde un usuario en sesión. Debe producirse un acceso no permitido a
 	// vistas privadas.
 	@Test
 	public void PR06() {
 		// Tratamos de acceder a la vista lista usuarios.
-		driver.navigate().to(URL + "/user/list");
+		driver.navigate().to(URL + "/usuarios");
 		// Comprobamos que nos redirige al login.
 		SeleniumUtils.esperarSegundos(driver, 1);
-		PO_RegisterView.checkKey(driver, "login.message", PO_Properties.getSPANISH());
+		PO_RegisterView.checkElement(driver, "text", "Identificación de usuario");
 
 	}
 
@@ -170,11 +172,11 @@ public class RedSocial1ApplicationTests {
 	@Test
 	public void PR07() {
 		// Vamos al formulario de logueo.
-		PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_NavView.clickOption(driver, "identificarse", "class", "btn btn-primary");
 		// Rellenamos el formulario
 		PO_LoginView.fillForm(driver, "adripc@live.com", "123456");
 		// Rellenamos el formulario de busqueda
-		PO_SearchTextView.fillForm(driver, "ran");
+		PO_SearchTextView.fillForm(driver, "adri");
 		SeleniumUtils.esperarSegundos(driver, 1);
 		// Contamos el número de filas de usuarios y comprobamos que solo hay una fila
 		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",
@@ -188,13 +190,13 @@ public class RedSocial1ApplicationTests {
 	@Test
 	public void PR08() {
 		// Tratamos de acceder a la vista lista usuarios.
-		driver.navigate().to(URL + "/user/list");
+		driver.navigate().to(URL + "/usuarios");
 		SeleniumUtils.esperarSegundos(driver, 1);
 		// Comprobamos que nos redirige al login.
-		PO_View.checkElement(driver, "text", "Login");
+		PO_RegisterView.checkElement(driver, "text", "Identificación de usuario");
 	}
 
-	// PR05_1 Enviar una invitación de amistad a un usuario de forma valida.
+	/*// PR05_1 Enviar una invitación de amistad a un usuario de forma valida.
 	@Test
 	public void PR09() {
 		// Vamos al formulario de logueo.
