@@ -8,7 +8,7 @@ public class PO_LoginView extends PO_NavView {
 	
 	static public void fillForm(WebDriver driver, String usernamep, String passwordp) {
 		
-			WebElement username = driver.findElement(By.name("username"));
+			WebElement username = driver.findElement(By.name("email"));
 			username.click();
 			username.clear();
 			username.sendKeys(usernamep);

@@ -91,28 +91,28 @@ public class RedSocial1ApplicationTests {
 
 	// PR01_2.Registro de Usuario con datos inválidos (repetición de contraseña
 	// invalida).
-	/*@Test
+	@Test
 	public void PR02() {
 
 		// Vamos al formulario de registro
-		PO_NavView.clickOption(driver, "signup", "class", "btn btn-primary");
+		PO_NavView.clickOption(driver, "registrarse", "class", "btn btn-primary");
 		// Rellenamos el formulario.
 		PO_RegisterView.fillForm(driver, "99999990B@uniovi.es", "Josefo", "7777", "7778");
 		// COmprobamos el error de password no coincidente .
 		SeleniumUtils.esperarSegundos(driver, 1);
-		PO_RegisterView.checkKey(driver, "Error.signup.passwordConfirm.coincidence", PO_Properties.getSPANISH());
+		PO_RegisterView.checkElement(driver, "text", "Las contraseñas no coinciden");
 	}
 
 	// PR02_1 Inicio de sesión con datos válidos
 	@Test
 	public void PR03() {
 		// Vamos al formulario de logueo.
-		PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_NavView.clickOption(driver, "identificarse", "class", "btn btn-primary");
 		// Rellenamos el formulario
 		PO_LoginView.fillForm(driver, "77777778A@uniovi.es", "77777");
 		// COmprobamos que entramos en la pagina privada de Alumno
-		SeleniumUtils.esperarSegundos(driver, 1);
-		PO_RegisterView.checkKey(driver, "users.show.text", PO_Properties.getSPANISH());
+		SeleniumUtils.esperarSegundos(driver, 2);
+		PO_RegisterView.checkElement(driver, "text", "Desconectarse");
 	}
 
 	// PR02_2 Inicio de sesión con datos inválidos (usuario no existente en la
@@ -120,15 +120,15 @@ public class RedSocial1ApplicationTests {
 	@Test
 	public void PR04() {
 		// Vamos al formulario de logueo.
-		PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_NavView.clickOption(driver, "identificarse", "class", "btn btn-primary");
 		// Rellenamos el formulario
 		PO_LoginView.fillForm(driver, "ZZZZZZZZA@uniovi.es", "123456");
 		// COmprobamos que no entramos en la pagina privada del Usuario
 		SeleniumUtils.esperarSegundos(driver, 1);
-		PO_RegisterView.checkKey(driver, "Error.login", PO_Properties.getSPANISH());
+		PO_RegisterView.checkElement(driver, "text", "Email o password incorrecto");
 	}
 
-	// PR03_1 Acceso al listado de usuarios desde un usuario en sesión.
+	/*// PR03_1 Acceso al listado de usuarios desde un usuario en sesión.
 	@Test
 	public void PR05() {
 		// Vamos al formulario de logueo.
