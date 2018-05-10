@@ -188,7 +188,7 @@ public class RedSocial1ApplicationTests {
 	// no
 	// identificado. Debe producirse un acceso no permitido a vistas privadas.
 	@Test
-	public void PR08() {
+	public void PR08(){
 		// Tratamos de acceder a la vista lista usuarios.
 		driver.navigate().to(URL + "/usuarios");
 		SeleniumUtils.esperarSegundos(driver, 1);
