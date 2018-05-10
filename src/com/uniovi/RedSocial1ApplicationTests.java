@@ -103,7 +103,7 @@ public class RedSocial1ApplicationTests {
 		// Rellenamos el formulario.
 		PO_RegisterView.fillForm(driver, "99999990B@uniovi.es", "Josefo", "7777", "7778");
 		// COmprobamos el error de password no coincidente .
-		SeleniumUtils.esperarSegundos(driver, 1);
+		SeleniumUtils.esperarSegundos(driver, 2);
 		PO_RegisterView.checkElement(driver, "text", "Las contraseÃ±as no coinciden");
 	}
 
@@ -161,7 +161,7 @@ public class RedSocial1ApplicationTests {
 		// Tratamos de acceder a la vista lista usuarios.
 		driver.navigate().to(URL + "/usuarios");
 		// Comprobamos que nos redirige al login.
-		SeleniumUtils.esperarSegundos(driver, 1);
+		SeleniumUtils.esperarSegundos(driver, 2);
 		PO_RegisterView.checkElement(driver, "text", "IdentificaciÃ³n de usuario");
 
 	}
@@ -191,7 +191,7 @@ public class RedSocial1ApplicationTests {
 	public void PR08(){
 		// Tratamos de acceder a la vista lista usuarios.
 		driver.navigate().to(URL + "/usuarios");
-		SeleniumUtils.esperarSegundos(driver, 1);
+		SeleniumUtils.esperarSegundos(driver, 2);
 		// Comprobamos que nos redirige al login.
 		PO_RegisterView.checkElement(driver, "text", "IdentificaciÃ³n de usuario");
 	}
@@ -309,18 +309,41 @@ public class RedSocial1ApplicationTests {
 		PO_View.checkElement(driver, "text", "Juan@hotmail.com");
 
 	}
-	//HASTA AQUI
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	*/
+	// PRC01_1.  Inicio de sesión con datos válidos. 
+	@Test
+	public void PR14() {
+		//Navegamos a la página de la API
+		driver.navigate().to(URL+"/cliente.html");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "77777778A@uniovi.es", "77777");
+		// COmprobamos que entramos en la pagina privada de Alumno
+		SeleniumUtils.esperarSegundos(driver, 2);
+		PO_RegisterView.checkElement(driver, "text", "Mensajes no leídos");
+	}
+	
+	// PRC01_2. Inicio de sesión con datos inválidos (usuario no existente en la aplicación). 
+	@Test
+	public void PR15() {
+		//Navegamos a la página de la API
+		driver.navigate().to(URL+"/cliente.html");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "ZZZZZZZZA@uniovi.es", "123456");
+		// COmprobamos que no entramos en la pagina privada del Usuario
+		SeleniumUtils.esperarSegundos(driver, 2);
+		PO_RegisterView.checkElement(driver, "text", "Usuario no encontrado");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//POR SI SE QUIERE UTILIZAR PA ALGO
 	/*// PR09_1 Crear una publicaciÃ³n con datos vÃ¡lidos
 	@Test
