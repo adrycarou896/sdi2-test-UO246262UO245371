@@ -1,5 +1,6 @@
 package com.uniovi;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -196,15 +198,15 @@ public class RedSocial1ApplicationTests {
 		PO_RegisterView.checkElement(driver, "text", "Identificación de usuario");
 	}
 
-	/*// PR05_1 Enviar una invitación de amistad a un usuario de forma valida.
+	// PR05_1 Enviar una invitación de amistad a un usuario de forma valida.
 	@Test
 	public void PR09() {
 		// Vamos al formulario de logueo.
-		PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_NavView.clickOption(driver, "identificarse", "class", "btn btn-primary");
 		// Rellenamos el formulario
 		PO_LoginView.fillForm(driver, "adripc@live.com", "123456");
 		// Enviamos petición de amistad
-		driver.findElement(By.id("sendPetitionButton2")).click();
+		driver.findElement(By.id("sendPetitionButton77777778A@uniovi.es")).click();
 	}
 
 	// PR05_2 Enviar una invitación de amistad a un usuario al que ya le habíamos
@@ -212,17 +214,15 @@ public class RedSocial1ApplicationTests {
 	// la invitación previamente. No debería dejarnos enviar la invitación, se
 	// podría ocultar el botón de enviar invitación o notificar que ya había sido
 	// enviada previamente.
-	@Test
+	@Test(expected=NoSuchElementException.class)
 	public void PR10() {
 		// Vamos al formulario de logueo.
-		PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_NavView.clickOption(driver, "identificarse", "class", "btn btn-primary");
 		// Rellenamos el formulario
 		PO_LoginView.fillForm(driver, "adripc@live.com", "123456");
 		// Comprobamos que ahora disponemos de un botón que nos permite cancelar petición.
-		driver.findElement(By.id("cancelPetitionButton2")).click();
-		// Comprobamos que ahora la finalidad del boton es cancelar petición.
-		SeleniumUtils.esperarSegundos(driver, 1);
-		PO_RegisterView.checkKey(driver, "friend.add", PO_Properties.getSPANISH());
+		driver.findElement(By.id("sendPetitionButton77777778A@uniovi.es"));
+		
 	}
 
 	// PR06_1 Listar las invitaciones recibidas por un usuario, realizar la
@@ -230,29 +230,23 @@ public class RedSocial1ApplicationTests {
 	// con una lista que al menos tenga una invitación recibida.
 	@Test
 	public void PR11() {
-		// Vamos al formulario de logueo.
-		PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
-		// Rellenamos el formulario
-		PO_LoginView.fillForm(driver, "adripc@live.com", "123456");
-		// Enviamos petición de amistad
-		driver.findElement(By.id("sendPetitionButton2")).click();
+		
+		PO_NavView.clickOption(driver, "identificarse", "class", "btn btn-primary");
+		
+		// 77777778A@uniovi.es se logea
+		PO_LoginView.fillForm(driver, "77777778A@uniovi.es", "77777");
 
-		// Cerramos sesión
-		PO_NavView.clickOption(driver, "logout", "class", "btn btn-primary");
-
-		// Juan@hotmail.com se logea
-		PO_LoginView.fillForm(driver, "Juan@hotmail.com", "123456");
-
-		// Juan@hotmail.com mira sus peticiones de amistad
+		// 77777778A@uniovi.es mira sus peticiones de amistad
 		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id,'users-menu')]/a");
 		elementos.get(0).click();
 		// Sacamos la pestaña para ver las peticiones
-		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'user/petitions')]");
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, '/relaciones/solicitadas')]");
 		// Pinchamos en la pestaña para ver las peticiones
 		elementos.get(0).click();
 		// PO_View.checkElement(driver, "text", "Aceptar petición");
 		SeleniumUtils.esperarSegundos(driver, 1);
-		PO_RegisterView.checkKey(driver, "petition.accept", PO_Properties.getSPANISH());
+		PO_RegisterView.checkElement(driver, "text", "adripc@live.com");
+		PO_RegisterView.checkElement(driver, "text", "Aceptar invitación");
 
 	}
 
@@ -260,30 +254,30 @@ public class RedSocial1ApplicationTests {
 	@Test
 	public void PR12() {
 
-		PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_NavView.clickOption(driver, "identificarse", "class", "btn btn-primary");
 
 		// Juan@hotmail.com se logea
-		PO_LoginView.fillForm(driver, "Juan@hotmail.com", "123456");
+		PO_LoginView.fillForm(driver, "77777778A@uniovi.es", "77777");
 
 		// Juan@hotmail.com mira sus peticiones de amistad
 		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id,'users-menu')]/a");
 		elementos.get(0).click();
 		// Sacamos la pestaña para ver las peticiones
-		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'user/petitions')]");
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, '/relaciones/solicitadas')]");
 		// Pinchamos en la pestaña para ver las peticiones
 		elementos.get(0).click();
 		// PO_View.checkElement(driver, "text", "Aceptar petición");
 		SeleniumUtils.esperarSegundos(driver, 1);
-		PO_RegisterView.checkKey(driver, "petition.accept", PO_Properties.getSPANISH());
-
+		
 		// Damos a aceptar la petición
-		driver.findElement(By.id("acceptPetitionButton1")).click();
+		PO_RegisterView.checkElement(driver, "text", "adripc@live.com");
+		driver.findElement(By.id("acceptPetitionButtonadripc@live.com")).click();
 
 		// Miramos que ha desparecido la invitación
 		// SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Aceptar petición",
 		// PO_View.getTimeout());
 		SeleniumUtils.esperarSegundos(driver, 1);
-		PO_RegisterView.checkNoKey(driver, "petition.accept", PO_Properties.getSPANISH());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "adripc@live.com", PO_View.getTimeout());
 	}
 
 	// PR08_1 Listar los amigos de un usuario, realizar la comprobación con una
@@ -293,23 +287,21 @@ public class RedSocial1ApplicationTests {
 	public void PR13() {
 
 		// Iniciamos sesión, este ya tiene una amigo Juan@hotmail.com
-		PO_NavView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_NavView.clickOption(driver, "identificarse", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "adripc@live.com", "123456");
 
 		// adripc2live.com entra en gestión de usuarios
 		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id,'users-menu')]/a");
 		elementos.get(0).click();
 		// Sacamos la pestaña para ver los amigos
-		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, 'user/friends')]");
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href, '/relaciones/aceptadas')]");
 		// Pinchamos en la pestaña para ver los amigos
 		elementos.get(0).click();
 
 		SeleniumUtils.esperarSegundos(driver, 1);
-		PO_RegisterView.checkKey(driver, "friends.text", PO_Properties.getSPANISH());
-		PO_View.checkElement(driver, "text", "Juan@hotmail.com");
+		PO_RegisterView.checkElement(driver, "text", "77777778A@uniovi.es");
 
 	}
-	//HASTA AQUI
 	
 	
 	
@@ -317,10 +309,6 @@ public class RedSocial1ApplicationTests {
 	
 	
 	
-	
-	
-	
-	*/
 	//POR SI SE QUIERE UTILIZAR PA ALGO
 	/*// PR09_1 Crear una publicación con datos válidos
 	@Test
