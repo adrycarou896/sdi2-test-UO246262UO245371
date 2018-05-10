@@ -86,7 +86,7 @@ public class RedSocial1ApplicationTests {
 	}
 	
 	// PR01_1. Registro de Usuario con datos válidos
-	@Test
+	/*@Test
 	public void PR01() {
 		// Vamos al formulario de registro
 		PO_NavView.clickOption(driver, "registrarse", "class", "btn btn-primary");
@@ -303,7 +303,7 @@ public class RedSocial1ApplicationTests {
 		SeleniumUtils.esperarSegundos(driver, 1);
 		PO_RegisterView.checkElement(driver, "text", "77777778A@uniovi.es");
 
-	}
+	}*/
 	
 	// PRC01_1. Inicio de sesión con datos válidos. 
 	@Test
@@ -325,7 +325,7 @@ public class RedSocial1ApplicationTests {
 		// Rellenamos el formulario
 		PO_LoginViewCliente.fillForm(driver, "ZZZZZZZZA@uniovi.es", "123456");
 		// Comprobamos que no entramos en la pagina privada del usuario
-		SeleniumUtils.esperarSegundos(driver, 5);
+		SeleniumUtils.esperarSegundos(driver, 1);
 		PO_RegisterView.checkElement(driver, "text", "Usuario no encontrado");
 	}
 	
@@ -351,8 +351,9 @@ public class RedSocial1ApplicationTests {
 		// Rellenamos el formulario
 		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
 		// COmprobamos que entramos en la pagina privada de Alumno
-		PO_SearchTextViewCliente.fillForm(driver, "Juan");
 		SeleniumUtils.esperarSegundos(driver, 5);
+		PO_SearchTextViewCliente.fillForm(driver, "Juan");
+		SeleniumUtils.esperarSegundos(driver, 2);
 		PO_RegisterView.checkElement(driver, "text", "Juan@hotmail.com");
 		
 	}
@@ -365,11 +366,11 @@ public class RedSocial1ApplicationTests {
 		// Rellenamos el formulario
 		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
 		// Navegamos al amigo de adrián, juan
-		SeleniumUtils.esperarSegundos(driver, 30);
+		SeleniumUtils.esperarSegundos(driver, 5);
 		driver.findElement(By.id("Juan@hotmail.com")).click();
 		
 		//Comprobamos que nos aparecen sus tres mensajes
-		SeleniumUtils.esperarSegundos(driver, 10);
+		SeleniumUtils.esperarSegundos(driver, 3);
 		PO_RegisterView.checkElement(driver, "text", "Mensaje 1");
 		PO_RegisterView.checkElement(driver, "text", "Mensaje 2");
 		PO_RegisterView.checkElement(driver, "text", "Mensaje 3");
@@ -383,10 +384,10 @@ public class RedSocial1ApplicationTests {
 		// Rellenamos el formulario
 		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
 		// Navegamos al amigo de adrián, juan
-		SeleniumUtils.esperarSegundos(driver, 30);
+		SeleniumUtils.esperarSegundos(driver, 5);
 		driver.findElement(By.id("Juan@hotmail.com")).click();
 		
-		SeleniumUtils.esperarSegundos(driver, 10);
+		//SeleniumUtils.esperarSegundos(driver, 10);
 	}
 	
 	// PRC05_1. Identificarse en la aplicación y enviar un mensaje a un amigo, validar que el mensaje enviado aparece en el chat. Identificarse después con el usuario que recibido el mensaje y validar que tiene un mensaje sin leer, entrar en el chat y comprobar que el mensaje pasa a tener el estado leído.
@@ -396,9 +397,10 @@ public class RedSocial1ApplicationTests {
 		driver.navigate().to(URL+"/cliente.html");
 		// Rellenamos el formulario
 		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
+		SeleniumUtils.esperarSegundos(driver, 5);
 		// COmprobamos que entramos en la pagina privada de Alumno
 		PO_SearchTextView.fillForm(driver, "Juan");
-		SeleniumUtils.esperarSegundos(driver, 10);
+		SeleniumUtils.esperarSegundos(driver, 2);
 		PO_RegisterView.checkElement(driver, "text", "Juan@hotmail.com");
 	}
 	
