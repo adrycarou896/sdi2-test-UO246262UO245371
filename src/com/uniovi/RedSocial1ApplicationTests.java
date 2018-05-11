@@ -303,9 +303,9 @@ public class RedSocial1ApplicationTests {
 	public void PR14() {
 		// Navegamos a la página de la API
 		driver.navigate().to(URL + "/cliente.html");
-		// Rellenamos el formulario
+		// Rellenamos el formulario con el usuario 77777778A@uniovi.es
 		PO_LoginViewCliente.fillForm(driver, "77777778A@uniovi.es", "77777");
-		// Comprobamos que entramos en la pagina privada del usuario
+		// Comprobamos que entramos en la pagina privada del usuario de forma que se nos muestre el texto Mensajes no leídos
 		SeleniumUtils.esperarSegundos(driver, 5);
 		PO_RegisterView.checkElement(driver, "text", "Mensajes no leídos");
 	}
@@ -316,7 +316,7 @@ public class RedSocial1ApplicationTests {
 	public void PR15() {
 		// Navegamos a la página de la API
 		driver.navigate().to(URL + "/cliente.html");
-		// Rellenamos el formulario
+		// Rellenamos el formulario con un usuario que no existe
 		PO_LoginViewCliente.fillForm(driver, "ZZZZZZZZA@uniovi.es", "123456");
 		// Comprobamos que no entramos en la pagina privada del usuario
 		SeleniumUtils.esperarSegundos(driver, 1);
@@ -329,9 +329,9 @@ public class RedSocial1ApplicationTests {
 	public void PR16() {
 		// Navegamos a la página del cliente
 		driver.navigate().to(URL + "/cliente.html");
-		// Rellenamos el formulario
+		// Rellenamos el formulario con el usuario adripc@live.com
 		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
-		// Comprobamos que aparecen los tres amigos de adrián
+		// Comprobamos que aparecen los tres amigos de este usuario
 		SeleniumUtils.esperarSegundos(driver, 5);
 		PO_RegisterView.checkElement(driver, "text", "Juan@hotmail.com");
 		PO_RegisterView.checkElement(driver, "text", "Roberto@hotmail.com");
@@ -345,11 +345,12 @@ public class RedSocial1ApplicationTests {
 	public void PR17() {
 		// Navegamos a la página del cliente
 		driver.navigate().to(URL + "/cliente.html");
-		// Rellenamos el formulario
+		// Rellenamos el formulario con el usuario adripc@live.com
 		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
-		// COmprobamos que entramos en la pagina privada de Alumno
+		// Rellenamos el formulario de filtrar por email y filtramos por Juan
 		SeleniumUtils.esperarSegundos(driver, 5);
 		PO_SearchTextViewCliente.fillForm(driver, "Juan");
+		// Comprobamos que el usuario que aparece es el usuario Juan
 		SeleniumUtils.esperarSegundos(driver, 2);
 		PO_RegisterView.checkElement(driver, "text", "Juan@hotmail.com");
 	}
@@ -360,9 +361,9 @@ public class RedSocial1ApplicationTests {
 	public void PR18() {
 		// Navegamos a la página del cliente
 		driver.navigate().to(URL + "/cliente.html");
-		// Rellenamos el formulario
+		// Rellenamos el formulario con el usuario adripc@live.com
 		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
-		// Navegamos al amigo de adrián, juan
+		// Navegamos al chat del amigo de Adrián, Juan
 		SeleniumUtils.esperarSegundos(driver, 5);
 		driver.findElement(By.id("Juan@hotmail.com")).click();
 
@@ -379,17 +380,17 @@ public class RedSocial1ApplicationTests {
 	public void PR19() {
 		// Navegamos a la página del cliente
 		driver.navigate().to(URL + "/cliente.html");
-		// Rellenamos el formulario
+		// Rellenamos el formulario con el usuario adripc@live.com
 		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
-		// Navegamos al amigo de adrián, juan
+		// Navegamos al chat del amigo de Adrián, Juan
 		SeleniumUtils.esperarSegundos(driver, 5);
 		driver.findElement(By.id("Juan@hotmail.com")).click();
 
-		// Enviar mensaje al otro usuario
+		// Enviamos un mensaje a Juan
 		SeleniumUtils.esperarSegundos(driver, 5);
 		PO_MessageView.fillForm(driver, "Mensaje 4");
 
-		// Comprobar el mensaje recibido
+		// Comprobamos que aparece el mensaje enviado
 		SeleniumUtils.esperarSegundos(driver, 5);
 		PO_RegisterView.checkElement(driver, "text", "Mensaje 4");
 	}
@@ -402,38 +403,38 @@ public class RedSocial1ApplicationTests {
 	public void PR20() {
 		// Navegamos a la página del cliente
 		driver.navigate().to(URL + "/cliente.html");
-		// Rellenamos el formulario
+		// Rellenamos el formulario con el usuario adripc@live.com
 		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
-		// Navegamos al amigo de adrián, juan
+		// Navegamos al chat del amigo de Adrián, Juan
 		SeleniumUtils.esperarSegundos(driver, 5);
 		driver.findElement(By.id("Juan@hotmail.com")).click();
 
-		// Enviar mensaje al otro usuario
+		// Enviamos mensaje al otro usuario
 		SeleniumUtils.esperarSegundos(driver, 5);
 		PO_MessageView.fillForm(driver, "Mensaje 5");
 
-		// Comprobar el mensaje recibido
+		// Comprobar que el mensaje se ha envíado y que está marcado como no leído.
 		SeleniumUtils.esperarSegundos(driver, 5);
 		PO_RegisterView.checkElement(driver, "text", "Mensaje 5");
 		PO_RegisterView.checkElement(driver, "text", "No leído");
 
 		// Navegamos a la página del cliente
 		driver.navigate().to(URL + "/cliente.html");
-		// Rellenamos el formulario
+		// Rellenamos el formulario con el usuario Juan@hotmail.com
 		PO_LoginViewCliente.fillForm(driver, "Juan@hotmail.com", "123456");
-		// Navegamos al amigo de juan, adrián
+		// Navegamos al chat del amigo de Juan, Adrián
 		SeleniumUtils.esperarSegundos(driver, 5);
 		driver.findElement(By.id("adripc@live.com")).click();
 		SeleniumUtils.esperarSegundos(driver, 2);
 
 		// Navegamos a la página del cliente
 		driver.navigate().to(URL + "/cliente.html");
-		// Rellenamos el formulario
+		// Rellenamos el formulario con el usuario adripc@live.com
 		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
-		// Navegamos al amigo de juan, adrián
+		// Navegamos al chat del amigo de Juan, Adrián
 		SeleniumUtils.esperarSegundos(driver, 5);
 		driver.findElement(By.id("Juan@hotmail.com")).click();
-		// Comprobamos que el mensaje ha quedado marcado como leído
+		// Comprobamos que el mensaje 5 aparece y que además ahora aparece el texto leído.
 		SeleniumUtils.esperarSegundos(driver, 5);
 		PO_RegisterView.checkElement(driver, "text", "Mensaje 5");
 		PO_RegisterView.checkElement(driver, "text", "Leído");
@@ -444,19 +445,19 @@ public class RedSocial1ApplicationTests {
 	public void PR21() {
 		// Navegamos a la página del cliente
 		driver.navigate().to(URL + "/cliente.html");
-		// Rellenamos el formulario
+		// Rellenamos el formulario con el usuario Roberto@hotmail.com
 		PO_LoginViewCliente.fillForm(driver, "Roberto@hotmail.com", "123456");
-		// Navegamos al amigo de adrián, juan
+		// Navegamos al chat del amigo de Roberto, Adrián
 		SeleniumUtils.esperarSegundos(driver, 5);
 		driver.findElement(By.id("adripc@live.es")).click();
 
-		// Enviar mensaje al otro usuario
+		// Enviamos tres mensajes a Adrián
 		SeleniumUtils.esperarSegundos(driver, 5);
 		PO_MessageView.fillForm(driver, "Mensaje 1");
 		PO_MessageView.fillForm(driver, "Mensaje 2");
 		PO_MessageView.fillForm(driver, "Mensaje 3");
 
-		// Comprobar que el mensaje ha sido enviado
+		// Comprobamos que los mensajes han sido enviado
 		SeleniumUtils.esperarSegundos(driver, 5);
 		PO_RegisterView.checkElement(driver, "text", "Mensaje 1");
 		PO_RegisterView.checkElement(driver, "text", "Mensaje 2");
@@ -464,7 +465,7 @@ public class RedSocial1ApplicationTests {
 		
 		// Navegamos a la página del cliente
 		driver.navigate().to(URL + "/cliente.html");
-		// Rellenamos el formulario
+		// Rellenamos el formulario con el usuario adripc@live.com
 		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
 		// Comprobamos que tenemos tres mensajes sin leer
 		PO_RegisterView.checkElement(driver, "text", "3");
@@ -693,7 +694,7 @@ public class RedSocial1ApplicationTests {
 	 * "//a[contains(@href, '/user/friends')]"); // Pinchamos en la pestaña para ver
 	 * los amigos elementos.get(0).click();
 	 * 
-	 * // vemos que no existe Juan@hotmail.com (JUAN Y ADRIAN ya no son amigos)
+	 * // vemos que no existe Juan@hotmail.com (Juan Y ADRIAN ya no son amigos)
 	 * SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Juan@hotmail.com",
 	 * PO_View.getTimeout()); }
 	 * 
