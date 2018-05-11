@@ -1,5 +1,6 @@
 package com.uniovi;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -199,6 +200,7 @@ public class RedSocial1ApplicationTests {
 		PO_NavView.clickOption(driver, "identificarse", "class", "btn btn-primary");
 		// Rellenamos el formulario
 		PO_LoginView.fillForm(driver, "adripc@live.com", "123456");
+		SeleniumUtils.esperarSegundos(driver, 5);
 		// Enviamos petición de amistad
 		driver.findElement(By.id("sendPetitionButton77777778A@uniovi.es")).click();
 	}
@@ -239,7 +241,7 @@ public class RedSocial1ApplicationTests {
 		// Pinchamos en la pestaña para ver las peticiones
 		elementos.get(0).click();
 		// PO_View.checkElement(driver, "text", "Aceptar petición");
-		SeleniumUtils.esperarSegundos(driver, 1);
+		SeleniumUtils.esperarSegundos(driver, 2);
 		PO_RegisterView.checkElement(driver, "text", "adripc@live.com");
 		PO_RegisterView.checkElement(driver, "text", "Aceptar invitación");
 
@@ -262,7 +264,7 @@ public class RedSocial1ApplicationTests {
 		// Pinchamos en la pestaña para ver las peticiones
 		elementos.get(0).click();
 		// PO_View.checkElement(driver, "text", "Aceptar petición");
-		SeleniumUtils.esperarSegundos(driver, 1);
+		SeleniumUtils.esperarSegundos(driver, 2);
 
 		// Damos a aceptar la petición
 		PO_RegisterView.checkElement(driver, "text", "adripc@live.com");
@@ -453,7 +455,7 @@ public class RedSocial1ApplicationTests {
 		PO_LoginViewCliente.fillForm(driver, "Roberto@hotmail.com", "123456");
 		// Navegamos al chat del amigo de Roberto, Adrián
 		SeleniumUtils.esperarSegundos(driver, 5);
-		driver.findElement(By.id("adripc@live.es")).click();
+		driver.findElement(By.id("adripc@live.com")).click();
 
 		// Enviamos tres mensajes a Adrián
 		SeleniumUtils.esperarSegundos(driver, 5);
@@ -486,7 +488,9 @@ public class RedSocial1ApplicationTests {
 		SeleniumUtils.esperarSegundos(driver, 5);
 		//Comprobamos que el último amigo de la lista es 77777778A@uniovi.es
 		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());
-		assertTrue(elementos.get(2).getText() == "77777778A@uniovi.es");
+		String email=elementos.get(2).getText().split(" ")[0].split("\n")[0];
+		
+		assertEquals(email,"77777778A@uniovi.es");
 		// Navegamos al chat del último amigo de la lista: 77777778A@uniovi.es
 		driver.findElement(By.id("77777778A@uniovi.es")).click();
 
@@ -501,12 +505,12 @@ public class RedSocial1ApplicationTests {
 		// Comprobamos que el primer usuario de la lista es 77777778A@uniovi.es
 		SeleniumUtils.esperarSegundos(driver, 5);
 		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());
-		assertTrue(elementos.get(0).getText() == "77777778A@uniovi.es");
+		assertTrue(elementos.get(0).getText().split(" ")[0].split("\n")[0].equals("77777778A@uniovi.es"));
 		
 		// Navegamos a la página del cliente
 		driver.navigate().to(URL + "/cliente.html");
 		// Rellenamos el formulario con el usuario 77777778A@uniovi.es
-		PO_LoginViewCliente.fillForm(driver, "77777778A@uniovi.es", "123456");
+		PO_LoginViewCliente.fillForm(driver, "77777778A@uniovi.es", "77777");
 		SeleniumUtils.esperarSegundos(driver, 5);
 		// Navegamos al chat de Adrián
 		driver.findElement(By.id("adripc@live.com")).click();
@@ -522,7 +526,7 @@ public class RedSocial1ApplicationTests {
 		// Comprobamos que el primer usuario de la lista es 77777778A@uniovi.es
 		SeleniumUtils.esperarSegundos(driver, 5);
 		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());
-		assertTrue(elementos.get(0).getText() == "77777778A@uniovi.es");
+		assertTrue(elementos.get(0).getText().split(" ")[0].split("\n")[0].equals("77777778A@uniovi.es"));
 	}
 
 	// POR SI SE QUIERE UTILIZAR PA ALGO
