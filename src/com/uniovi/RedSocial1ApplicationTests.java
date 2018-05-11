@@ -353,6 +353,10 @@ public class RedSocial1ApplicationTests {
 		// Comprobamos que el usuario que aparece es el usuario Juan
 		SeleniumUtils.esperarSegundos(driver, 2);
 		PO_RegisterView.checkElement(driver, "text", "Juan@hotmail.com");
+		// Contamos el número de filas de usuarios y comprobamos que solo hay una fila
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",
+				PO_View.getTimeout());
+		assertTrue(elementos.size() == 1);
 	}
 
 	// PRC03_1. Acceder a la lista de mensajes de un amigo “chat”, la lista debe
@@ -440,7 +444,7 @@ public class RedSocial1ApplicationTests {
 		PO_RegisterView.checkElement(driver, "text", "Leído");
 
 	}
-	// Identificarse en la aplicación y enviar tres mensajes a un amigo, validar que los mensajes enviados aparecen en el chat. Identificarse después con el usuario que recibido el mensaje y validar que el número de mensajes sin leer aparece en la propia lista de amigos. 
+	// PRC06_1. Identificarse en la aplicación y enviar tres mensajes a un amigo, validar que los mensajes enviados aparecen en el chat. Identificarse después con el usuario que recibido el mensaje y validar que el número de mensajes sin leer aparece en la propia lista de amigos. 
 	@Test
 	public void PR21() {
 		// Navegamos a la página del cliente
@@ -453,22 +457,72 @@ public class RedSocial1ApplicationTests {
 
 		// Enviamos tres mensajes a Adrián
 		SeleniumUtils.esperarSegundos(driver, 5);
-		PO_MessageView.fillForm(driver, "Mensaje 1");
-		PO_MessageView.fillForm(driver, "Mensaje 2");
-		PO_MessageView.fillForm(driver, "Mensaje 3");
+		PO_MessageView.fillForm(driver, "Mensaje 6");
+		PO_MessageView.fillForm(driver, "Mensaje 7");
+		PO_MessageView.fillForm(driver, "Mensaje 8");
 
 		// Comprobamos que los mensajes han sido enviado
 		SeleniumUtils.esperarSegundos(driver, 5);
-		PO_RegisterView.checkElement(driver, "text", "Mensaje 1");
-		PO_RegisterView.checkElement(driver, "text", "Mensaje 2");
-		PO_RegisterView.checkElement(driver, "text", "Mensaje 3");
+		PO_RegisterView.checkElement(driver, "text", "Mensaje 6");
+		PO_RegisterView.checkElement(driver, "text", "Mensaje 7");
+		PO_RegisterView.checkElement(driver, "text", "Mensaje 8");
 		
 		// Navegamos a la página del cliente
 		driver.navigate().to(URL + "/cliente.html");
 		// Rellenamos el formulario con el usuario adripc@live.com
 		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
 		// Comprobamos que tenemos tres mensajes sin leer
+		SeleniumUtils.esperarSegundos(driver, 5);
 		PO_RegisterView.checkElement(driver, "text", "3");
+	}
+
+	// PRC07_1. Identificarse con un usuario A que al menos tenga 3 amigos, ir al chat del ultimo amigo de la lista y enviarle un mensaje, volver a la lista de amigos y comprobar que el usuario al que se le ha enviado el mensaje esta en primera posición. Identificarse con el usuario B y enviarle un mensaje al usuario A. Volver a identificarse con el usuario A y ver que el usuario que acaba de mandarle el mensaje es el primero en su lisa de amigos. 
+	@Test
+	public void PR22() {
+		// Navegamos a la página del cliente
+		driver.navigate().to(URL + "/cliente.html");
+		// Rellenamos el formulario con el usuario adripc@live.com
+		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
+		SeleniumUtils.esperarSegundos(driver, 5);
+		//Comprobamos que el último amigo de la lista es 77777778A@uniovi.es
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());
+		assertTrue(elementos.get(2).getText() == "77777778A@uniovi.es");
+		// Navegamos al chat del último amigo de la lista: 77777778A@uniovi.es
+		driver.findElement(By.id("77777778A@uniovi.es")).click();
+
+		// Enviamos un mensaje a 77777778A@uniovi.es
+		SeleniumUtils.esperarSegundos(driver, 5);
+		PO_MessageView.fillForm(driver, "Mensaje 9");
+		
+		// Navegamos a la página del cliente
+		driver.navigate().to(URL + "/cliente.html");
+		// Rellenamos el formulario con el usuario adripc@live.com
+		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
+		// Comprobamos que el primer usuario de la lista es 77777778A@uniovi.es
+		SeleniumUtils.esperarSegundos(driver, 5);
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());
+		assertTrue(elementos.get(0).getText() == "77777778A@uniovi.es");
+		
+		// Navegamos a la página del cliente
+		driver.navigate().to(URL + "/cliente.html");
+		// Rellenamos el formulario con el usuario 77777778A@uniovi.es
+		PO_LoginViewCliente.fillForm(driver, "77777778A@uniovi.es", "123456");
+		SeleniumUtils.esperarSegundos(driver, 5);
+		// Navegamos al chat de Adrián
+		driver.findElement(By.id("adripc@live.com")).click();
+
+		// Enviamos un mensaje a adripc@live.com
+		SeleniumUtils.esperarSegundos(driver, 5);
+		PO_MessageView.fillForm(driver, "Mensaje 10");
+		
+		// Navegamos a la página del cliente
+		driver.navigate().to(URL + "/cliente.html");
+		// Rellenamos el formulario con el usuario adripc@live.com
+		PO_LoginViewCliente.fillForm(driver, "adripc@live.com", "123456");
+		// Comprobamos que el primer usuario de la lista es 77777778A@uniovi.es
+		SeleniumUtils.esperarSegundos(driver, 5);
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());
+		assertTrue(elementos.get(0).getText() == "77777778A@uniovi.es");
 	}
 
 	// POR SI SE QUIERE UTILIZAR PA ALGO
